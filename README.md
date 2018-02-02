@@ -14,9 +14,7 @@
 ## Datasets
   In this repo, I mainly focus on *MNIST* datasets.
   
-  TODO:
-  
-    - In the following time, I will test it in *cifar10, cifar100 etc* datasets to see wheather this networks can work well
+  **TODO:**In the following time, I will test it in ***cifar10, cifar100 etc*** datasets to see wheather this networks can work well
   
   You are not required to download *MNIST* datasets since I use tensorflow mnist tool to obtain this datasets, so you just run this repo like the following steps.
   
