@@ -105,7 +105,8 @@ class NonLocalNet:
         datasource = get_data(self.mnist)
         gen_data = gen_batch_data(datasource, self.batchsize)
         idxs = int(len(datasource.images)/self.batchsize)
-
+        step = 0
+        
         for epoch in range(self.config.epochs):
             counter = 0
             for idx in tqdm(range(idxs)):
@@ -119,7 +120,8 @@ class NonLocalNet:
                                                                         self.input_labels:labels
                                                                     })
                 counter = counter + train_counter
-                self.summary_writer.add_summary(summaries, global_step=idx)
+                step = step + 1
+                self.summary_writer.add_summary(summaries, global_step=step)
 
             train_accuracy  = float(counter)/(idxs*self.batchsize)
             print('epoch[{}/{}]:training accuracy:{:.4f}'.format(epoch,self.config.epochs, train_accuracy))
