@@ -1,5 +1,5 @@
 # Non-Local-Nets
-  This is an implement of Non-local Nets for tensorflow version. [Here](https://arxiv.org/pdf/1711.07971.pdf), you can see the paper provided by Kaiming He et.al.
+  - This is an implement of Non-local Nets for tensorflow version. [Here](https://arxiv.org/pdf/1711.07971.pdf), you can see the paper provided by Kaiming He et.al.
 
 # Requirements
   - tensorflow > 1.0.0
@@ -36,6 +36,8 @@
   
 # Results
   After about 30 epochs or less, you can see that the testing accuracy rate can reach to **$\le 99.22%$**. And training accuracy rate can reach to **$99.91%$**. I run this repo in **Geforce GTX 1070 GPU**, it cost 8 seconds per epoch.
+  
+  <p align='center'><img src='./figure/figure.png'/></p>
   
 # References
   - [Non-local Neural Networks](https://arxiv.org/pdf/1711.07971.pdf)
