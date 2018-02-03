@@ -37,11 +37,15 @@
       $ python main.py --is_training=False --is_testing=True
   
 # Results
-## MNIST
+## [MNIST](http://yann.lecun.com/exdb/mnist/)
   After about 30 epochs or less, you can see that the testing accuracy rate can reach to more than **99.22%**. And training accuracy rate can reach to **99.91%**. I run this repo in **Geforce GTX 1070 GPU**, it cost 8 seconds per epoch.
   
   <p align='center'><img src='./figure/figure.png'/></p>
-  
+
+## [Cifar10](https://www.cs.toronto.edu/~kriz/cifar.html)
+
+## [Cifar100](https://www.cs.toronto.edu/~kriz/cifar.html)
+
 # References
   - [Non-local Neural Networks](https://arxiv.org/pdf/1711.07971.pdf)
   
