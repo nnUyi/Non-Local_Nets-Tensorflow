@@ -1,5 +1,5 @@
 # Non-Local-Nets
-  - This is an implement of Non-local Nets for tensorflow version. [Here](https://arxiv.org/pdf/1711.07971.pdf), you can see the paper provided by Xiaolong Wang et.al.
+  - This is an implement of Non-local neural networks for tensorflow version. [Here](https://arxiv.org/pdf/1711.07971.pdf), you can see the paper provided by Xiaolong Wang et.al.
 
 # Requirements
   - tensorflow > 1.0.0
