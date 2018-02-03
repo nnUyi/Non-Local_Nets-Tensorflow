@@ -106,7 +106,7 @@ class NonLocalNet:
         gen_data = gen_batch_data(datasource, self.batchsize)
         idxs = int(len(datasource.images)/self.batchsize)
         step = 0
-        
+
         for epoch in range(self.config.epochs):
             counter = 0
             for idx in tqdm(range(idxs)):
@@ -161,7 +161,8 @@ class NonLocalNet:
         self.saver.save(self.sess, checkpoint)
 
     def load_model(self):
-        if not os.path.exists(self.model_dir):
+        ckpt = tf.train.get_checkpoint_state(self.model_dir)
+        if not (ckpt and ckpt.model_checkpoint_path):
             return False
         checkpoint = os.path.join(self.model_dir, self.model_name)
         self.saver.restore(self.sess, checkpoint)
