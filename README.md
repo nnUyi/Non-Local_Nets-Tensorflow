@@ -64,14 +64,14 @@
 
 # Results
 ## [MNIST](http://yann.lecun.com/exdb/mnist/)
-  After about 1 epochs or less, you can see that the testing accuracy rate can reach to more than **96.00%**. And training accuracy rate can reach to **98.36%**.
+  - After about 1 epochs or less, you can see that the testing accuracy rate can reach to more than **96.00%**. And training accuracy rate can reach to **98.36%**.
   
-  After about 100 epochs or less, you can see that the testing accuracy rate can reach to more than **99.39%**. And training accuracy rate can reach to **99.91%**. I run this repo in **Geforce GTX 1070 GPU**, it cost 8 seconds per epoch.
+  - After about 100 epochs or less, you can see that the testing accuracy rate can reach to more than **99.39%**. And training accuracy rate can reach to **99.91%**. I run this repo in **Geforce GTX 1070 GPU**, it cost 8 seconds per epoch.
   
   <p align='center'><img src='./figure/mnist.png'/></p>
 
 ## [CIFAR10](https://www.cs.toronto.edu/~kriz/cifar.html)
-  After about 100 epochs or less, you can see that the testing accuracy rate can reach to more than **81.22%**. And training accuracy rate can reach to **99.16%**. I run this repo in **Geforce GTX 1070 GPU**, it cost 30 seconds per epoch.
+  - After about 100 epochs or less, you can see that the testing accuracy rate can reach to more than **81.22%**. And training accuracy rate can reach to **99.16%**. I run this repo in **Geforce GTX 1070 GPU**, it cost 30 seconds per epoch.
   
   <p align='center'><img src='./figure/cifar10.png'/></p>
   
@@ -79,6 +79,7 @@
 
 # References
   - [Non-local Neural Networks](https://arxiv.org/pdf/1711.07971.pdf)
+  - cifar10.py is derived from [Hvass-Labs's codes](https://github.com/Hvass-Labs/TensorFlow-Tutorials)
   
 # Contacts
   Email:computerscienceyyz@163.com
