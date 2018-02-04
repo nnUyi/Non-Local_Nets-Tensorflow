@@ -28,7 +28,8 @@
 ## Training
 ### MNIST
   If this is first time you run the repo, it will download *MNIST* automatically it will cost about 5 to 10 seconds, please wait for a moment. After that, you need not to download *MNIST* again since it have been downloaded at first time. Just see the following instructions for training phase:
-    
+      
+      # MNIST is the default option
       $ python main.py --is_training=True --is_testing=False
       
       # If GPU options is avaiable, you can use it as the instruction shows below:
@@ -52,13 +53,14 @@
   In this repo you can will see the testing phase during training phase since I ran the test_model codes to test its performance per 5 epochs.
   If you have finished training phase and want to test it, just see the following instructions:
   
+      # MNIST is the default option
       $ python main.py --is_training=False --is_testing=True
 
 ### CIFAR10
   In this repo you can will see the testing phase during training phase since I ran the test_model codes to test its performance per 5 epochs.
   If you have finished training phase and want to test it, just see the following instructions:
   
-      $ python main.py --is_training=False --is_testing=True
+      $ python main.py --is_training=False --is_testing=True --datasets=cifar10 --input_height=32 --input_width=32 --input_channels=3
 
 # Results
 ## [MNIST](http://yann.lecun.com/exdb/mnist/)
