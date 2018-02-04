@@ -3,7 +3,7 @@
 # Functions for downloading the CIFAR-10 data-set from the internet
 # and loading it into memory.
 #
-# Implemented in Python 3.5
+# Implemented in Python 2.7
 #
 # Usage:
 # 1) Set the variable data_path with the desired storage path.
@@ -35,7 +35,6 @@
 import numpy as np
 import cPickle as pickle
 import os
-import download
 from dataset import one_hot_encoded
 
 ########################################################################
@@ -150,19 +149,6 @@ def _load_data(filename):
 
 
 ########################################################################
-# Public functions that you may call to download the data-set from
-# the internet and load the data into memory.
-
-
-def maybe_download_and_extract():
-    """
-    Download and extract the CIFAR-10 data-set if it doesn't already exist
-    in data_path (set this variable first to the desired path).
-    """
-
-    download.maybe_download_and_extract(url=data_url, download_dir=data_path)
-
-
 def load_class_names():
     """
     Load the names for the classes in the CIFAR-10 data-set.
