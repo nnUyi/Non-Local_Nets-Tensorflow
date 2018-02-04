@@ -64,7 +64,9 @@
 
 # Results
 ## [MNIST](http://yann.lecun.com/exdb/mnist/)
-  After about 30 epochs or less, you can see that the testing accuracy rate can reach to more than **99.39%**. And training accuracy rate can reach to **99.91%**. I run this repo in **Geforce GTX 1070 GPU**, it cost 8 seconds per epoch.
+  After about 1 epochs or less, you can see that the testing accuracy rate can reach to more than **96.00%**. And training accuracy rate can reach to **98.36%**.
+  
+  After about 100 epochs or less, you can see that the testing accuracy rate can reach to more than **99.39%**. And training accuracy rate can reach to **99.91%**. I run this repo in **Geforce GTX 1070 GPU**, it cost 8 seconds per epoch.
   
   <p align='center'><img src='./figure/mnist.png'/></p>
 
