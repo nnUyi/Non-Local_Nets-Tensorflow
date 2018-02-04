@@ -69,6 +69,8 @@ class NonLocalNet:
         if self.input_channels == 3:
             print('data_augement')
             self.input_augement_images = pre_process(self.input_images, self.config.is_training)
+        else:
+            self.input_augement_images = self.input_images
         # prediction
         pred_softmax, pred_logits = self.Net(self.input_augement_images)
         # loss function
