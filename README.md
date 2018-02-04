@@ -2,9 +2,11 @@
   - This is an implement of Non-local neural networks for tensorflow version. [Here](https://arxiv.org/pdf/1711.07971.pdf), you can see the paper provided by Xiaolong Wang et.al.
 
 # Requirements
+  - python 2.7
   - tensorflow > 1.0.0
   - numpy
   - tqdm
+  - cPickle(python2.7), pickle(python3.*)
 
 # Usages
 ## Download Repo
@@ -22,7 +24,6 @@
   
   TODO:
   - In the following time, I will test it in ***cifar100 etc*** datasets to see wheather this networks can work well
-  
   
 ## Training
   If this is first time you run the repo, it will download *MNIST* automatically it will cost about 5 to 10 seconds, please wait for a moment. After that, you need not to download *MNIST* again since it have been downloaded at first time. Just see the following instructions for training phase:
