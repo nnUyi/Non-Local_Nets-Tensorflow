@@ -12,12 +12,17 @@
     $ cd Non-Local-Nets
 
 ## Datasets
-  In this repo, I mainly focus on *MNIST* datasets.
+  In this repo, I mainly focus on *MNIST*, *CIFAR10* datasets.
+  - MNIST: You are not required to download *MNIST* datasets since I use tensorflow mnist tool to obtain this datasets, so you just run this repo like the following steps.
+  
+  - CIFAR10: You are required to download *CIFAR10* datasets [here](https://www.cs.toronto.edu/~kriz/cifar.html), unzip it and store it in *'./data/cifar10/'*, note that **CIFAR-10 python version** is required. You can unzip it in *'./data/cifar10/'* using the following command:
+  
+        $ tar -zxvf cifar-10-python.tar.gz
+        # you will see that data_batch_* are stored in './data/cifar10/cifar-10-batches-py/'
   
   TODO:
-  - In the following time, I will test it in ***cifar10, cifar100 etc*** datasets to see wheather this networks can work well
+  - In the following time, I will test it in ***cifar100 etc*** datasets to see wheather this networks can work well
   
-  You are not required to download *MNIST* datasets since I use tensorflow mnist tool to obtain this datasets, so you just run this repo like the following steps.
   
 ## Training
   If this is first time you run the repo, it will download *MNIST* automatically it will cost about 5 to 10 seconds, please wait for a moment. After that, you need not to download *MNIST* again since it have been downloaded at first time. Just see the following instructions for training phase:
@@ -40,11 +45,14 @@
 ## [MNIST](http://yann.lecun.com/exdb/mnist/)
   After about 30 epochs or less, you can see that the testing accuracy rate can reach to more than **99.22%**. And training accuracy rate can reach to **99.91%**. I run this repo in **Geforce GTX 1070 GPU**, it cost 8 seconds per epoch.
   
-  <p align='center'><img src='./figure/figure.png'/></p>
+  <p align='center'><img src='./figure/mnist.png'/></p>
 
-## [Cifar10](https://www.cs.toronto.edu/~kriz/cifar.html)
-
-## [Cifar100](https://www.cs.toronto.edu/~kriz/cifar.html)
+## [CIFAR10](https://www.cs.toronto.edu/~kriz/cifar.html)
+  After about 100 epochs or less, you can see that the testing accuracy rate can reach to more than **81.22%**. And training accuracy rate can reach to **99.16%**. I run this repo in **Geforce GTX 1070 GPU**, it cost 30 seconds per epoch.
+  
+  <p align='center'><img src='./figure/cifar10.png'/></p>
+  
+## [CIFAR100](https://www.cs.toronto.edu/~kriz/cifar.html)
 
 # References
   - [Non-local Neural Networks](https://arxiv.org/pdf/1711.07971.pdf)
