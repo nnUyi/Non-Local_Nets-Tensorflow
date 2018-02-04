@@ -4,9 +4,8 @@ import os
 import numpy as np
 
 from tqdm import tqdm
-from ops import NonLocalBlock
+from ops import NonLocalBlock, pre_process
 from utils import get_data, gen_batch_data
-from tensorflow.examples.tutorials.mnist import input_data
 
 class NonLocalNet:
     model_name = 'NonLocalNet.model'
@@ -25,8 +24,6 @@ class NonLocalNet:
         self.input_width = input_width
         self.input_channels = input_channels
         self.num_class = num_class
-        self.mnist = input_data.read_data_sets("./mnist/", one_hot=True)
-
         self.sess = sess
 
     def Net(self, input_x, is_training = True, scope='Nets'):
@@ -55,7 +52,7 @@ class NonLocalNet:
                     # mnist: B*4*4*1
                 with tf.name_scope('fully_connected') as sc_fc:
                     cnv3_pool_flatten = tf.reshape(cnv3_pool, [batchsize, -1])
-                    fc1 = tf.nn.relu(slim.fully_connected(cnv3_pool_flatten, 256, scope='fc1'))
+                    fc1 = tf.nn.relu(slim.fully_connected(cnv3_pool_flatten, 1024, scope='fc1'))
                     fc1_dropout = slim.dropout(fc1, 0.5)
                     fc2 = slim.fully_connected(fc1_dropout, 10, scope='fc2')
                     fc2_softmax = tf.nn.softmax(fc2, -1)
@@ -64,16 +61,16 @@ class NonLocalNet:
     def build_model(self):
         # mnist size
         self.image_shape = [self.input_height*self.input_width*self.input_channels]
-        self.label_shape = [10]
+        self.label_shape = [self.num_class]
         # input images & labels
-
-        self.input_seqs = tf.placeholder(tf.float32, [self.batchsize]+self.image_shape, 'input_images')
-        self.input_images = tf.reshape(self.input_seqs, [self.batchsize, self.input_height, self.input_width, self.input_channels])
-
+        self.input_images = tf.placeholder(tf.float32, [self.batchsize, self.input_height, self.input_width, self.input_channels], 'input_images')
         self.input_labels = tf.placeholder(tf.float32, [self.batchsize]+self.label_shape, 'input_labels')
-
+        # data_augement if image is the colorful one
+        if self.input_channels == 3:
+            print('data_augement')
+            self.input_augement_images = pre_process(self.input_images, self.config.is_training)
         # prediction
-        pred_softmax, pred_logits = self.Net(self.input_images)
+        pred_softmax, pred_logits = self.Net(self.input_augement_images)
         # loss function
         self.loss = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits(logits=pred_logits, labels=self.input_labels))
         # AdamOptimizer
@@ -81,12 +78,11 @@ class NonLocalNet:
         # accuracy rate
         self.accuracy_counter = tf.reduce_sum(tf.cast(tf.equal(tf.argmax(pred_softmax,1), tf.argmax(self.input_labels,1)), tf.float32))
         self.accuracy = self.accuracy_counter/self.batchsize
-
         # add summary
         self.loss_summary = tf.summary.scalar('cross entropy loss', self.loss)
         self.accuracy_summary = tf.summary.scalar('accuracy', self.accuracy)
         self.summaries = tf.summary.merge_all()
-        self.summary_writer = tf.summary.FileWriter('./logs', self.sess.graph)
+        self.summary_writer = tf.summary.FileWriter('./{}/{}'.format(self.config.log_dir, self.config.datasets), self.sess.graph)
         # save model
         self.saver = tf.train.Saver()
 
@@ -102,7 +98,7 @@ class NonLocalNet:
         else:
             print('[!!!]fail to load model')
         # load training data
-        datasource = get_data(self.mnist)
+        datasource = get_data(self.config.datasets)
         gen_data = gen_batch_data(datasource, self.batchsize)
         idxs = int(len(datasource.images)/self.batchsize)
         step = 0
@@ -116,7 +112,7 @@ class NonLocalNet:
                                                                     self.summaries,
                                                                     self.accuracy_counter],
                                                                     feed_dict={
-                                                                        self.input_seqs:images,
+                                                                        self.input_images:images,
                                                                         self.input_labels:labels
                                                                     })
                 counter = counter + train_counter
@@ -134,7 +130,18 @@ class NonLocalNet:
                 self.save_model()
 
     def test_model(self):
-        datasource = get_data(self.mnist, is_training=False)
+        if not self.config.is_training:
+            try:
+                tf.global_variables_initializer().run()
+            except:
+                tf.initialize_all_variables().run()
+            is_load = self.load_model()
+            if is_load:
+                print('[***]load model successfully')
+            else:
+                print('[!!!]fail to load model')
+                return
+        datasource = get_data(self.config.datasets, is_training=False)
         gen_data = gen_batch_data(datasource, self.batchsize, is_training=False)
         ites = int(len(datasource.images)/self.batchsize)
         counter = 0
@@ -142,7 +149,7 @@ class NonLocalNet:
             images, labels = next(gen_data)
             tmp = self.sess.run(self.accuracy_counter,
                                 feed_dict={
-                                    self.input_seqs:images,
+                                    self.input_images:images,
                                     self.input_labels:labels
                                 })
             counter = counter + tmp

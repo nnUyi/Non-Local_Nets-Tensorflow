@@ -1,5 +1,6 @@
 import random
 import numpy as np
+import cifar10
 from tensorflow.examples.tutorials.mnist import input_data
 
 class Datasource:
@@ -7,13 +8,27 @@ class Datasource:
         self.images = images
         self.labels = labels
 
-def get_data(mnist, is_training=True):
-    if is_training:
-        images = mnist.train.images
-        labels = mnist.train.labels
+def get_data(data_type='mnist', is_training=True):
+    if data_type == 'mnist':
+        raw_data = input_data.read_data_sets('./data/mnist/', one_hot=True)
+        shape = [28,28,1]
+        if is_training:
+            size = len(raw_data.train.images)
+            images = np.reshape(raw_data.train.images, [size]+shape)
+            labels = raw_data.train.labels
+        else:
+            size = len(raw_data.test.images)
+            images = np.reshape(raw_data.test.images, [size]+shape)
+            labels = raw_data.test.labels
+    elif data_type == 'cifar10':
+        if is_training:
+            images, _, labels = cifar10.load_training_data()
+        else:
+            images, _, labels = cifar10.load_test_data()
+
     else:
-        images = mnist.test.images
-        labels = mnist.test.labels
+        raise Exception('data type error: {}'.format(data_type))
+
     datasource = Datasource(images, labels)
     return datasource
 

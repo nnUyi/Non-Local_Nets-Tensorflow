@@ -7,8 +7,7 @@ flags = tf.app.flags
 flags.DEFINE_string('datasets', 'mnist', 'datasets type')
 flags.DEFINE_bool('is_training', False, 'training phase')
 flags.DEFINE_bool('is_testing', False, 'testing phase')
-flags.DEFINE_integer('max_steps', 100000, 'training steps')
-flags.DEFINE_integer('epochs', 80, 'training epochs')
+flags.DEFINE_integer('epochs', 100, 'training epochs')
 flags.DEFINE_float('learning_rate', 0.0002, 'learning rate')
 flags.DEFINE_float('beta1', 0.5, 'beta1')
 flags.DEFINE_float('beta2', 0.999, 'beta2')
@@ -27,6 +26,8 @@ def check_dir():
         os.mkdir(FLAGS.checkpoint_dir)
     if not os.path.exists(FLAGS.log_dir):
         os.mkdir(FLAGS.log_dir)
+    if not os.path.exists(FLAGS.data_dir):
+        os.mkdir(FLAGS.data_dir)
 
 def print_config():
     print('\n')
@@ -35,7 +36,6 @@ def print_config():
     print('datasets:{}'.format(FLAGS.datasets))
     print('is_training:{}'.format(FLAGS.is_training))
     print('is_testing:{}'.format(FLAGS.is_testing))
-    print('max_steps:{}'.format(FLAGS.max_steps))
     print('epochs:{}'.format(FLAGS.epochs))
     print('learning_rate:{}'.format(FLAGS.learning_rate))
     print('beta1:{}'.format(FLAGS.beta1))
@@ -63,7 +63,8 @@ def main(_):
         if FLAGS.is_training:
             nonlocalnet.train_model()
         if FLAGS.is_testing:
-            nonlocalnet.test_model()
+            accuracy = nonlocalnet.test_model()
+            print('testing accuracy:{:.4f}'.format(accuracy))
 
 if __name__=='__main__':
     with tf.device('/gpu:0'):

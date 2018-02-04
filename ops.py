@@ -36,7 +36,51 @@ def NonLocalBlock(input_x, out_channels, sub_sample=True, is_bn=True, scope='Non
         z = input_x + w_y
         return z
 
+def data_augement(image, is_training):
+    # This function takes a single image as input,
+    # and a boolean whether to build the training or testing graph.
+
+    if is_training:
+        # For training, add the following to the TensorFlow graph.
+
+        # Randomly crop the input image.
+        #size = image.get_shape().as_list()[0]
+        #image = tf.random_crop(image, size=[size, img_size_cropped, img_size_cropped, num_channels])
+        # Randomly flip the image horizontally.
+        image = tf.image.random_flip_left_right(image)
+
+        # Randomly adjust hue, contrast and saturation.
+        image = tf.image.random_hue(image, max_delta=0.05)
+        image = tf.image.random_contrast(image, lower=0.3, upper=1.0)
+        image = tf.image.random_brightness(image, max_delta=0.2)
+        image = tf.image.random_saturation(image, lower=0.0, upper=2.0)
+
+        # Limit the image pixels between [0, 1] in case of overflow.
+        image = tf.minimum(image, 1.0)
+        image = tf.maximum(image, 0.0)
+    else:
+        # For training, add the following to the TensorFlow graph.
+
+        # Crop the input image around the centre so it is the same
+        # size as images that are randomly cropped during training.
+        #image = tf.image.resize_image_with_crop_or_pad(image,
+        #                                               target_height=img_size_cropped,
+        #                                               target_width=img_size_cropped)
+        pass
+    return image
+
+def pre_process(images, is_training):
+    # Use TensorFlow to loop over all the input images and call
+    # the function above which takes a single image as input.
+    images = tf.map_fn(lambda image: data_augement(image, is_training), images)
+    return images
+
 if __name__ == '__main__':
+    # test NonLocalNet
     input_x = tf.Variable(tf.random_normal([10,64,64,256]))
     out = NonLocalBlock(input_x, out_channels = 128)
     print(out.get_shape().as_list())
+    # test data_augement
+    input_x = tf.Variable(tf.random_normal([10,64,64,3]))
+    image = pre_process(input_x, True)
+    print(image.get_shape().as_list())
