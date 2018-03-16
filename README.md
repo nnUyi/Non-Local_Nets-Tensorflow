@@ -3,7 +3,7 @@
   
   - Non-Local-Block shows below:
   
-  <p><src align='center' img='./figure/non_local_block.png'></p>
+  <p align='center'><img src='./figure/non_local_block.png'/></p>
   
 # Requirements
   - python 2.7
