@@ -1,6 +1,10 @@
 # Non-Local-Nets
   - This is an implement of Non-local neural networks for tensorflow version. [Here](https://arxiv.org/pdf/1711.07971.pdf), you can see the paper provided by Xiaolong Wang et.al.
-
+  
+  - Non-Local-Block shows below:
+  
+  <p align='center'><img src='./figure/non_local_block.png'/></p>
+  
 # Requirements
   - python 2.7
   - tensorflow > 1.0.0
