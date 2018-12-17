@@ -17,12 +17,11 @@ def NonLocalBlock(input_x, out_channels, sub_sample=True, is_bn=True, scope='Non
         with tf.variable_scope('theta') as scope:
             theta = slim.conv2d(input_x, out_channels, [1,1], stride=1, scope='theta')
 
-        g_x = tf.reshape(g, [batchsize,out_channels, -1])
-        g_x = tf.transpose(g_x, [0,2,1])
+        g_x = tf.reshape(g, [batchsize,-1,out_channels])
 
-        theta_x = tf.reshape(theta, [batchsize, out_channels, -1])
-        theta_x = tf.transpose(theta_x, [0,2,1])
-        phi_x = tf.reshape(phi, [batchsize, out_channels, -1])
+        theta_x = tf.reshape(theta, [batchsize, -1, out_channels])
+        phi_x = tf.reshape(phi, [batchsize, -1, out_channels])
+        phi_x = tf.transpose(phi_x, [0,2,1])
 
         f = tf.matmul(theta_x, phi_x)
         # ???
